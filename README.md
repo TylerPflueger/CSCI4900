@@ -9,7 +9,8 @@ Python script that connects Maven to DoSOCS. Traverses through a pom xml file an
 ## Development Environment
 - UBUNTU 14.04
 - Python 2.7
-
+- DoSOCSv2
+- 
 ## Communication Management Plan
 - Email
 - Github
