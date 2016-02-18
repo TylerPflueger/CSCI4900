@@ -16,4 +16,4 @@ Python script that connects Maven to DoSOCS. Traverses through a pom xml file an
 - 2 meetings a week (Tuesdays/Thursdays)
 
 ## Dataflow diagram of the system
-https://cloud.githubusercontent.com/assets/2850506/13156004/033c0a9e-d646-11e5-9525-a2dc59d157c8.png
+![dataflow-diagram](https://cloud.githubusercontent.com/assets/2850506/13156004/033c0a9e-d646-11e5-9525-a2dc59d157c8.png)
