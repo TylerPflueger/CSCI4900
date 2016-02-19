@@ -13,8 +13,7 @@ call(command, shell=True)
 currentDirectory = os.getcwd()
 os.chdir(tempDirectoryPath)
 for jarFilePath in glob.glob('*.jar'):
-    print jarFilePath
-    call('dosocs2 oneshot ' + jarFilePath, shell=True)
+    call('dosocs2 scan ' + jarFilePath, shell=True)
 
 os.chdir(currentDirectory)
 shutil.rmtree(tempDirectoryPath)
