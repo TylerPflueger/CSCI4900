@@ -2,34 +2,52 @@ from treelib import Node, Tree
 import subprocess
 import re
 from dependency_node import DependencyNode
+from tempfile import mkdtemp
+import shutil
+
+tempDirectoryPath = mkdtemp(dir=".")
+
+value = subprocess.Popen('mvn dependency:tree -DoutputType=tgf', stdout=subprocess.PIPE, shell=True)
 
 tree = Tree()
+dependencies = {}
+val = []
 
-value = subprocess.Popen('mvn dependency:tree', stdout=subprocess.PIPE, shell=True)
-
-def getInitialPomValue(lines):
-    parent = ''
-    dependencies = []
-
+def getDependencies():
     while True:
-        line = lines.stdout.readline().rstrip()
+        line = value.stdout.readline().rstrip()
 
-        if not line:
+        if not line or re.search(r"BUILD SUCCESS", line):
             break
 
-        match = re.match(r"\[INFO\][^\|\\]([/+/-]*)?\s?([a-zA-Z\.\-0-9]*?):([a-zA-Z\.\-0-9]*?):([a-zA-Z\.\-0-9]*?):([0-9\.]*)", line)
+        # This isn't working for output with version:compile(or whatever else)
+        match = re.match(r"\[INFO\]\s(\d*)\s*(.*):(.*):(\w+):([0-9\.]*)", line)
 
         if match:
-            print line
-            if match.group(1) != '+-':
-                parent = match
-            else:
-                dependencies.append(match)
+            if not match.group(1) in dependencies.keys():
+                dependencies[match.group(1)] = DependencyNode(match.group(2), match.group(3), match.group(5), match.group(1))
 
-    tree.create_node(parent.group(3), parent.group(3), data=DependencyNode(parent.group(2), parent.group(3), parent.group(4)))
-    for dep in dependencies:
-        tree.create_node(dep.group(3), dep.group(3), parent=parent.group(3), data=DependencyNode(dep.group(2), dep.group(3), dep.group(4)))
+            if not tree.leaves():
+                tree.create_node(match.group(1), match.group(1), data=dependencies[match.group(1)])
 
-    tree.show()
+            dependencies[match.group(1)].get('jar', tempDirectoryPath)
 
-getInitialPomValue(value)
+        match = re.match(r"\[INFO\]\s(\d*)\s(\d*)", line)
+
+        if match and match.group(2):
+            val.append((match.group(1), match.group(2)))
+
+getDependencies()
+
+while val:
+    for item in val:
+        node = tree.get_node(item[0])
+
+        if node is not None:
+            parent = dependencies[item[0]]
+            dependency = dependencies[item[1]]
+            tree.create_node(dependency.referenceId, dependency.referenceId, parent=parent.referenceId, data=dependency)
+            val.remove(item)
+
+tree.show()
+shutil.rmtree(tempDirectoryPath)
