@@ -1,4 +1,4 @@
-# CSCI4900
+# CSCI4900 [![Build Status](https://travis-ci.org/tpflueger/CSCI4900.svg?branch=master)](https://travis-ci.org/tpflueger/CSCI4900)
 
 #### To install python packages -
 `pip install -r requirements-dev.txt`
