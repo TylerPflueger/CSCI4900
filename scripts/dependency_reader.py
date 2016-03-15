@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 from treelib import Node, Tree
 from dependency_node import DependencyNode
 import subprocess

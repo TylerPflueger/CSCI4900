@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 import shutil
 import sys
 import os
