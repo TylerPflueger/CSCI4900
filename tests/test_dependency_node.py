@@ -5,12 +5,14 @@ import os
 import glob
 
 class TestDependencyNode:
-    def setup(self):
+    def setup_class(self):
         self.node = dependency_node.DependencyNode('org.joda', 'joda-money', '0.11', '1')
         os.chdir(os.path.abspath('./tests'))
+        self.tempDirectoryPath = mkdtemp(dir=".")
 
-    def teardown(self):
+    def teardown_class(self):
         os.chdir(os.pardir)
+        shutil.rmtree(self.tempDirectoryPath)
 
     def test_should_create_dependency_node(self):
         assert 'org.joda' in self.node.groupId
@@ -19,10 +21,7 @@ class TestDependencyNode:
         assert '1' in self.node.referenceId
 
     def test_should_get_file(self):
-        self.tempDirectoryPath = mkdtemp(dir=".")
         self.node.get('jar', self.tempDirectoryPath)
         os.chdir(self.tempDirectoryPath)
         filePath = glob.glob('*.jar')[0]
-        os.chdir(os.pardir)
-        shutil.rmtree(self.tempDirectoryPath)
         assert filePath != None
