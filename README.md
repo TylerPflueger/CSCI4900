@@ -25,4 +25,5 @@ Python script that connects Maven to DoSOCS. Traverses through a pom xml file an
 ## License
 
 MIT © Aarjav Chauhan, Tyler Pflueger
+
 CC-BY-SA-4.0 © Aarjav Chauhan, Tyler Pflueger
