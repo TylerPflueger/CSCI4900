@@ -1,7 +1,14 @@
 # CSCI4900 [![Build Status](https://travis-ci.org/tpflueger/CSCI4900.svg?branch=master)](https://travis-ci.org/tpflueger/CSCI4900)
 
-#### To install python packages -
-`pip install -r requirements-dev.txt`
+## To install
+`pip install .` within top-level of project
+
+Note - Current setup doesn't install [DoSOCSv2](https://github.com/DoSOCSv2/DoSOCSv2) completely. You will need to follow their instructions to get the project working.
+
+## Usage
+Pass pom.xml to be parsed, domaven will then pass all the parsed dependencies to DoSOCSv2 with relationship info:
+
+    $ domaven ./path/to/pom.xml
 
 ## System Description
 Python script that connects Maven to DoSOCS. Traverses through a pom xml file and finds out project-level dependencies. This information is then stored into a database which has an SPDX schema.
