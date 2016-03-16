@@ -29,6 +29,17 @@ Python script that connects Maven to DoSOCS. Uses Maven to find out project-leve
 ## SPDX diagram of database
 ![SPDX-diagram](https://cloud.githubusercontent.com/assets/2850506/13796701/2f0e8508-ead6-11e5-86c9-62c93beed600.png)
 
+## USE CASE
+Title: Dependency relationship creation in SPDX
+Primary Actor: Developer
+Goal in context: Discover dependencies for a prject and store relationship in an SPDX schema
+Stakeholders and Interests: Developers
+Preconditions: Maven, DOSOCS, environment setup
+Main success scenario: Created dependency tree and stored relationships in the SPDX schema
+Failed end conditions: unsuitable POM xml file
+Trigger: "domaven", pom file
+
+
 ## License
 
 MIT © Aarjav Chauhan, Tyler Pflueger
