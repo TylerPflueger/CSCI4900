@@ -11,6 +11,7 @@ class DependencyNode:
         self.artifactId = artifactId
         self.version = version
         self.referenceId = referenceId
+        self.jarName = self.artifactId + '-' + self.version + '.jar'
 
     def get(self, type, tempDirectoryPath):
         command = "mvn -q dependency:copy " +\

@@ -58,4 +58,10 @@ class DependencyReader:
                     self.graphRelationships.remove(item)
 
     def scanDependencies(self):
+        # Need to run on each package with oneshot to get identifiers
+        # unless update dosocsv2 to create identifiers on scan
         subprocess.call('dosocs2 scan ' + self.tempDirectoryPath, shell=True)
+
+    def createRelationships(self):
+        # Pass packages as relationships to new dosocsv2 command created
+        print("hello")
