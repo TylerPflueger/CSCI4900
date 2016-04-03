@@ -29,9 +29,9 @@ def main():
         dependencyReader.relateDependencies()
         dependencyReader.scanDependencies()
         dependencyReader.createRelationships()
-        
+
         dependencyReader.tree.show()
-        # shutil.rmtree(dependencyReader.tempDirectoryPath)
+        shutil.rmtree(dependencyReader.tempDirectoryPath)
 
 if __name__ == "__main__":
     sys.exit(main())

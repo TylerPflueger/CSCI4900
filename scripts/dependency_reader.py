@@ -22,7 +22,6 @@ class DependencyReader:
 
     def getDependencies(self):
         mavenTreeOutput = subprocess.Popen('mvn dependency:tree -DoutputType=tgf', stdout=subprocess.PIPE, shell=True)
-        os.chdir(os.pardir)
 
         while True:
             line = mavenTreeOutput.stdout.readline().rstrip()
@@ -60,8 +59,19 @@ class DependencyReader:
     def scanDependencies(self):
         # Need to run on each package with oneshot to get identifiers
         # unless update dosocsv2 to create identifiers on scan
-        subprocess.call('dosocs2 scan ' + self.tempDirectoryPath, shell=True)
+        # or fix up dosocsv2 to create identifiers on scan instead
+        for node in self.tree.expand_tree(mode=Tree.DEPTH):
+            treeNode = self.tree.get_node(node)
+            subprocess.call('dosocs2 oneshot ' + treeNode.data.jarName, shell=True)
 
     def createRelationships(self):
         # Pass packages as relationships to new dosocsv2 command created
-        print("hello")
+        self.recursiveRelationship(self.tree.root)
+        os.chdir(os.pardir)
+
+    def recursiveRelationship(self, parent):
+        for node in self.tree.is_branch(parent):
+            parentNode = self.tree.get_node(parent)
+            childNode = self.tree.get_node(node)
+            subprocess.call('dosocs2 packagerelate ' + parentNode.data.jarName + ' ' + childNode.data.jarName, shell=True)
+            self.recursiveRelationship(node)

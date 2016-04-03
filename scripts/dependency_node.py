@@ -17,5 +17,5 @@ class DependencyNode:
         command = "mvn -q dependency:copy " +\
             "-Dartifact=" + self.groupId + ':' + self.artifactId + ':' +\
             self.version + ':' + type +\
-            " -DoutputDirectory=" + tempDirectoryPath
+            " -DoutputDirectory=."
         call(command, shell=True)
