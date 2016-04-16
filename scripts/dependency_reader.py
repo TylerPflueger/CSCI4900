@@ -67,7 +67,6 @@ class DependencyReader:
     def createRelationships(self):
         # Pass packages as relationships to new dosocsv2 command created
         self.recursiveRelationship(self.tree.root)
-        os.chdir(os.pardir)
 
     def recursiveRelationship(self, parent):
         for node in self.tree.is_branch(parent):
@@ -75,3 +74,8 @@ class DependencyReader:
             childNode = self.tree.get_node(node)
             subprocess.call('dosocs2 packagerelate ' + parentNode.data.jarName + ' ' + childNode.data.jarName, shell=True)
             self.recursiveRelationship(node)
+
+    def retrieve_dependencies(self):
+        root = self.tree.get_node(self.tree.root)
+        root.data.get_relationships()
+        os.chdir(os.pardir)

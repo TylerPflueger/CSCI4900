@@ -19,3 +19,8 @@ class DependencyNode:
             self.version + ':' + type +\
             " -DoutputDirectory=."
         call(command, shell=True)
+
+    def get_relationships(self):
+        command = "dosocs2 dependencies " +\
+            self.jarName
+        call(command, shell=True)

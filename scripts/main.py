@@ -29,8 +29,7 @@ def main():
         dependencyReader.relateDependencies()
         dependencyReader.scanDependencies()
         dependencyReader.createRelationships()
-
-        dependencyReader.tree.show()
+        dependencyReader.retrieve_dependencies()
         shutil.rmtree(dependencyReader.tempDirectoryPath)
 
 if __name__ == "__main__":
