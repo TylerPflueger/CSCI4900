@@ -3,12 +3,16 @@
 ## To install
 `pip install .` within top-level of project
 
-Note - Current setup doesn't install [DoSOCSv2](https://github.com/DoSOCSv2/DoSOCSv2) completely. You will need to follow their instructions first before trying to install current project for it to work.
+Note - Current setup doesn't install branch of [DoSOCSv2/feature/relationships](https://github.com/tpflueger/DoSOCSv2/tree/feature/relationships) that domaven relies on. You will need to follow the instructions first before trying to install current project for it to work.
 
 ## Usage
 Pass pom.xml to be parsed, domaven will then pass all the parsed dependencies to DoSOCSv2 with relationship info:
 
-    $ domaven ./path/to/pom.xml
+    $ domaven scan ./path/to/pom.xml
+
+Pass jar file that has already been scanned and displays dependency_tree:
+
+    $ domaven dependencies ./path/to/file.jar
 
 ## System Description
 Python script that connects Maven to DoSOCS. Uses Maven to find out project-level dependencies based on passed pom.xml. A tree is constructed of the hierarchy from parent package downward. All the packages are then given to DoSOCSv2 to be stored into the the database along with the relationship info information which pertains to the SPDX schema.
