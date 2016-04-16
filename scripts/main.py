@@ -14,7 +14,7 @@ import os
 from dependency_reader import DependencyReader
 from docopt import docopt
 
-__version__ = '0.0.1'
+__version__ = '1.0.0'
 
 def main():
     argv = docopt(

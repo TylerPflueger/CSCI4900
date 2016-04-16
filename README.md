@@ -10,7 +10,7 @@ Pass pom.xml to be parsed, domaven will then pass all the parsed dependencies to
 
     $ domaven scan ./path/to/pom.xml
 
-Pass jar file that has already been scanned and displays dependency_tree:
+Pass jar file that has already been scanned and displays dependency tree:
 
     $ domaven dependencies ./path/to/file.jar
 
@@ -43,6 +43,21 @@ Main success scenario: Created dependency tree and stored relationships in the S
 Failed end conditions: unsuitable POM xml file
 Trigger: "domaven", pom file
 
+## TEST CASES
+
+### scan
+1. Does scan accept a pom file?
+2. Is scan able to grab all dependencies from Maven with pom file?
+3. After grabbing all dependencies, is it able to create the tree?
+4. Does it send each package to be scanned and related and stored in the database?
+5. Does it get tgf output from DoSOCS2 of dependencies?
+6. Does it show a tree view of all the dependencies?
+
+### dependencies
+1. Does dependencies accept a jar file?
+2. Is it able to connect to DoSOCS2 by passing the jar file to it?
+3. Does it return tgf output from DoSOCS2 of child dependencies?
+4. Does it show a tree view of current and child dependencies based on jar file given?
 
 ## License
 
