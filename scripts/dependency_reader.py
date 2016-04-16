@@ -75,7 +75,55 @@ class DependencyReader:
             subprocess.call('dosocs2 packagerelate ' + parentNode.data.jarName + ' ' + childNode.data.jarName, shell=True)
             self.recursiveRelationship(node)
 
-    def retrieve_dependencies(self):
-        root = self.tree.get_node(self.tree.root)
-        root.data.get_relationships()
+    def retrieve_dependencies(self, jarName):
+        if jarName is None:
+            root = self.tree.get_node(self.tree.root)
+            root = root.data.jarName
+        else:
+            root = jarName
+
+        tgfOutput = subprocess.Popen('dosocs2 dependencies ' + root, stdout=subprocess.PIPE, shell=True)
+        count = 0
+        tree = Tree()
+        dependencies = []
+        relationships = []
+        while True:
+            line = tgfOutput.stdout.readline()
+
+            if not line:
+                break
+
+            match = re.match(r"(\d+) - (.*)", line)
+            if match:
+                if count == 0:
+                    count = count + 1
+                    tree.create_node(match.group(2), match.group(1))
+                else:
+                    dependencies.append((match.group(2), match.group(1)))
+
+            match = re.match(r"(\d+) (\d+)", line)
+
+            if match:
+                relationships.append((match.group(1), match.group(2)))
+
+        if not relationships:
+            print("No child relationships for " + jarName)
+            return None
+
+        while relationships:
+            for item in relationships:
+                node = tree.get_node(item[0])
+
+                if node is not None:
+                    rel = [item for item in relationships if int(item[0]) == int(node.identifier)]
+                    if rel is not None:
+                        rel = rel[0]
+                        dep = [item for item in dependencies if int(item[1]) == int(rel[1])]
+                        if dep is not None:
+                            dep = dep[0]
+                            tree.create_node(dep[0], dep[1], parent=node.identifier)
+                            relationships.remove(rel)
+                            dependencies.remove(dep)
+
+        tree.show()
         os.chdir(os.pardir)

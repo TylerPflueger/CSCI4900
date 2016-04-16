@@ -1,10 +1,12 @@
 # SPDX-License-Identifier: MIT
 '''Usage:
-{0} FILE
+{0} scan (FILE)
+{0} dependencies (JARNAME)
 {0} (--help | --version)
 
 Arguments:
-    FILE    path to pom.xml
+    scan            Scan pom file for dependencies
+    dependencies    Show dependency tree for jarFile
 '''
 import shutil
 import sys
@@ -21,16 +23,17 @@ def main():
         version=__version__
     )
 
-    if argv['FILE']:
-        dependencyReader = DependencyReader()
-
+    dependencyReader = DependencyReader()
+    if argv['scan']:
         dependencyReader.getPom(os.path.abspath(argv['FILE']))
         dependencyReader.getDependencies()
         dependencyReader.relateDependencies()
         dependencyReader.scanDependencies()
         dependencyReader.createRelationships()
-        dependencyReader.retrieve_dependencies()
+        dependencyReader.retrieve_dependencies(None)
         shutil.rmtree(dependencyReader.tempDirectoryPath)
+    elif argv['dependencies']:
+        dependencyReader.retrieve_dependencies(argv['JARNAME'])
 
 if __name__ == "__main__":
     sys.exit(main())
