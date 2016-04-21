@@ -2,13 +2,15 @@ from setuptools import setup
 
 _domaven_version = '0.0.1'
 
+'''
+'flake8',
+'pyflakes',
+'mccabe',
+'pep8',
+'dosocs2'
+'''
 install_requires = [
-    'treelib',
-    'flake8',
-    'pyflakes',
-    'mccabe',
-    'pep8',
-    'dosocs2'
+    'treelib'
 ]
 
 tests_require = [
