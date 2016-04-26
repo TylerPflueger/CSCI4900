@@ -21,7 +21,7 @@ class DependencyReader:
         os.chdir(self.tempDirectoryPath)
 
     def getDependencies(self):
-        mavenTreeOutput = subprocess.Popen('mvn dependency:tree -DoutputType=tgf', stdout=subprocess.PIPE, shell=True)
+        mavenTreeOutput = subprocess.Popen('mvn org.apache.maven.plugins:maven-dependency-plugin:RELEASE:tree -DoutputType=tgf', stdout=subprocess.PIPE, shell=True)
 
         while True:
             line = mavenTreeOutput.stdout.readline().rstrip()

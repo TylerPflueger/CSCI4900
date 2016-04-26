@@ -14,10 +14,7 @@ class DependencyNode:
         self.jarName = self.artifactId + '-' + self.version + '.jar'
 
     def get(self, type, tempDirectoryPath):
-        command = "mvn -q dependency:copy " +\
-            "-Dartifact=" + self.groupId + ':' + self.artifactId + ':' +\
-            self.version + ':' + type +\
-            " -DoutputDirectory=."
+        command = "mvn -q org.apache.maven.plugins:maven-dependency-plugin:RELEASE:copy -Dartifact=" + self.groupId + ":" + self.artifactId + ":" + self.version + ":" + type + " -DoutputDirectory=."
         call(command, shell=True)
 
     def get_relationships(self):
