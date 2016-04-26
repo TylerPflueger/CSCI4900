@@ -34,6 +34,7 @@ def main():
         shutil.rmtree(dependencyReader.tempDirectoryPath)
     elif argv['dependencies']:
         dependencyReader.retrieve_dependencies(argv['JARNAME'])
-
+        shutil.rmtree(dependencyReader.tempDirectoryPath)
+        
 if __name__ == "__main__":
     sys.exit(main())

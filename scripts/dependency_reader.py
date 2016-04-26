@@ -126,4 +126,5 @@ class DependencyReader:
                             dependencies.remove(dep)
 
         tree.show()
-        os.chdir(os.pardir)
+        if jarName is None:
+            os.chdir(os.pardir)
