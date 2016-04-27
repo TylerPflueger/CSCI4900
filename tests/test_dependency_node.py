@@ -21,7 +21,7 @@ class TestDependencyNode:
         assert '1' in self.node.referenceId
 
     def test_should_get_file(self):
-        self.node.get('jar', self.tempDirectoryPath)
         os.chdir(self.tempDirectoryPath)
+        self.node.get('jar', self.tempDirectoryPath)
         filePath = glob.glob('*.jar')[0]
         assert filePath != None
