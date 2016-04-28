@@ -59,6 +59,17 @@ Trigger: "domaven", pom file
 3. Does it return tgf output from DoSOCS2 of child dependencies?
 4. Does it show a tree view of current and child dependencies based on jar file given?
 
+## Contributions
+
+### domaven
+- plugin to interact with DoSOCS for handling java based projects
+- creates dependency tree to pass to DoSOCS
+- displays hierarchy of relationships for a given package
+ 
+### DoSOCS modifications
+- allows for creation of relationships between package to package
+- displays relationships of a given package in tree graph format
+
 ## License
 
 MIT © Aarjav Chauhan, Tyler Pflueger
